@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+    margin: 0;
+    height: 100%;
+}
+
+.slide-in-enter-active,
+.slide-in-leave-active {
+    transition: all 0.2s ease;
+}
+
+.slide-in-enter-from,
+.slide-in-leave-to {
+    opacity: 0;
+    transform: translateY(-.5rem);
+}
