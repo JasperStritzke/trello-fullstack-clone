@@ -2,7 +2,7 @@
   <div ref="root">
     <slot name="activator" :on="{mouseenter, mouseleave, keypress: keypress, mouseup: mouseup}"/>
   </div>
-  <transition name="slide-in">
+  <transition name="slide-in-bottom">
     <div
         v-if="tooltip" v-click-away="clickAway"
         class="absolute"

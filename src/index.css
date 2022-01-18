@@ -7,13 +7,25 @@ html, body, #app {
     height: 100%;
 }
 
-.slide-in-enter-active,
-.slide-in-leave-active {
+.slide-in-bottom-enter-active,
+.slide-in-bottom-leave-active {
     transition: all 0.2s ease;
 }
 
-.slide-in-enter-from,
-.slide-in-leave-to {
+.slide-in-bottom-enter-from,
+.slide-in-bottom-leave-to {
     opacity: 0;
     transform: translateY(-.5rem);
+}
+
+/* SLIDE-IN-FROM-RIGHT */
+.slide-in-right-enter-active,
+.slide-in-right-leave-active {
+    transition: all 0.2s ease;
+    transform: translateX(0);
+}
+
+.slide-in-right-enter-from,
+.slide-in-right-leave-to {
+    transform: translateX(100%);
 }

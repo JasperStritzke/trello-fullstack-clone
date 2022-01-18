@@ -4,17 +4,18 @@
         'btn-base': true, //Always include base
         [computedRounded]: true,
         ['btn-' + this.color]: !!this.color && !this.transparent,
-        ['btn-only-icon']: this.onlyIcon
+        ['btn-only-icon']: this.onlyIcon,
+        'btn-small': this.small
       }"
       v-bind="$attrs">
     <slot name="append">
-      <mdicon v-if="appendIcon" :name="appendIcon" width="16"/>
+      <mdicon v-if="appendIcon" :name="appendIcon" :width="iconSize"/>
     </slot>
     <slot name="content">
       {{ label }}
     </slot>
     <slot name="prepend">
-      <mdicon v-if="prependIcon" :name="prependIcon" width="16"/>
+      <mdicon v-if="prependIcon" :name="prependIcon" :width="iconSize"/>
     </slot>
   </button>
 </template>
@@ -35,9 +36,16 @@ export default {
       type: String,
       default: "gray"
     },
+    small: {
+      type: Boolean,
+      default: false
+    },
     transparent: {type: Boolean, default: false},
   },
   computed: {
+    iconSize() {
+      return this.small ? 12 : 16
+    },
     //Purging purpose
     computedRounded() {
       switch (this.rounded) {
@@ -69,14 +77,32 @@ export default {
   @apply px-5 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight
 }
 
+.btn-small {
+  @apply text-sm px-3 p-1
+}
+
+/* GRAY */
+
 .btn-gray {
   @apply bg-gray-100 text-gray-500 hover:bg-gray-200 active:bg-gray-300
 }
 
+.btn-gray-outline {
+  @apply text-gray-500 border border-gray-500 hover:bg-gray-100 active:bg-gray-200
+}
+
+/* PRIMARY */
 .btn-primary {
   @apply bg-primary-100 text-white px-3 active:bg-primary-300 hover:bg-primary-200
 }
 
+/* RED */
+
+.btn-outline-red {
+  @apply text-red-600 border border-red-600 hover:bg-red-100 active:bg-red-200
+}
+
+/* VARIANTS */
 .btn-only-icon {
   @apply px-3
 }

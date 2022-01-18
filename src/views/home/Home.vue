@@ -1,5 +1,6 @@
 <template>
   <!-- Top bar -->
+  <board-menu v-model="menuShown"/>
   <div class="flex justify-between flex-col lg:flex-row gap-5">
     <div class="flex gap-5 flex-row lg:flex-row">
       <menuable activate-only-on-click>
@@ -30,32 +31,32 @@
       />
       <trello-button append-icon="plus" color="primary" rounded="xl" only-icon/>
     </div>
-    <trello-button label="Show menu" append-icon="dots-horizontal"/>
+    <trello-button label="Show menu" append-icon="dots-horizontal" @click="menuShown = true"/>
   </div>
 
   <background>
     <div class="selectable">
       <p>Finished 🚀</p>
-      <div class="inline-block">
-      </div>
     </div>
   </background>
 </template>
 
 <script>
-import TrelloButton from "../components/form/TrelloButton.vue";
-import Avatar from "../components/media/Avatar.vue";
-import Background from "../components/layout/Background.vue";
-import Menuable from "../components/util/Menuable.vue";
-import DropdownMenu from "../components/util/DropdownMenu.vue";
-import VisibilitySetting from "../components/util/VisibilitySetting.vue";
+import TrelloButton from "../../components/form/TrelloButton.vue";
+import Avatar from "../../components/media/Avatar.vue";
+import Background from "../../components/layout/Background.vue";
+import Menuable from "../../components/util/Menuable.vue";
+import DropdownMenu from "../../components/util/DropdownMenu.vue";
+import VisibilitySetting from "../../components/util/VisibilitySetting.vue";
+import BoardMenu from "./BoardMenu.vue";
 
 export default {
   name: "Home",
-  components: {VisibilitySetting, DropdownMenu, Menuable, Background, TrelloButton, Avatar},
+  components: {BoardMenu, VisibilitySetting, DropdownMenu, Menuable, Background, TrelloButton, Avatar},
   data() {
     return {
-      visibility: "Private"
+      visibility: "Private",
+      menuShown: false,
     }
   },
   computed: {

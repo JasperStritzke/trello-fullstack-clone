@@ -2,7 +2,7 @@
   <div class="h-full flex flex-col">
     <drawer/>
     <app-bar/>
-    <div id="container" class="p-5 pb-0 mt-5 h-full flex flex-col">
+    <div id="container" class="relative p-5 pb-0 mt-5 h-full flex flex-col">
       <router-view/>
     </div>
   </div>
