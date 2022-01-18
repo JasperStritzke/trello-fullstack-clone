@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-in-right">
     <div
-        class="absolute right-0 top-0 bg-white h-full shadow-lg p-5 w-1/3 xl:w-1/4 overflow-hidden rounded-l"
+        class="absolute right-0 top-0 bg-white h-full shadow-lg p-5 w-1/3 xl:w-1/4 rounded-l flex flex-col overflow-y-scroll"
         v-if="modelValue"
     >
       <div class="flex flex-row mb-2 text-gray-800 justify-between items-center">
@@ -21,7 +21,7 @@
             avatar-url="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
         />
 
-        <div class="flex flex-row text-gray-400 text-xs items-center mt-4 mb-3 justify-between">
+        <div class="flex flex-row text-gray-400 text-xs items-center mt-5 mb-5 justify-between">
           <div class="flex flex-row items-center gap-2">
             <mdicon name="file-document" size="16"/>
             <p class="tracking-tight">Description</p>

@@ -13,8 +13,10 @@
       <trello-button label="All boards" append-icon="dots-grid"/>
     </div>
 
-    <div class="flex flex-row items-center gap-3 mr-5 justify-center mt-5 lg:mt-0">
-      <text-field placeholder="Search for activity..."/>
+    <text-field placeholder="Search for activity..." prepend-icon="magnify"/>
+
+    <div class="flex flex-row items-center gap-7 mr-5 justify-center mt-5 lg:mt-0">
+
       <div class="cursor-pointer flex flex-row items-center gap-3">
         <avatar
             src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"

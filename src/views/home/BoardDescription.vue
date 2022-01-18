@@ -9,6 +9,7 @@
 <script>
 import {Editor, EditorContent} from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
+import {CharacterCount} from "@tiptap/extension-character-count";
 
 export default {
   components: {EditorContent},
@@ -19,6 +20,10 @@ export default {
     },
     modelValue: {
       default: '',
+    },
+    maxLength: {
+      type: Number,
+      default: 500
     }
   },
   emits: ["update:modelValue"],
@@ -36,6 +41,9 @@ export default {
     this.editor = new Editor({
       extensions: [
         StarterKit,
+        CharacterCount.configure({
+          limit: this.maxLength,
+        })
       ],
       editorProps: {
         attributes: {

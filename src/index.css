@@ -37,3 +37,8 @@ html, body, #app {
 .slide-in-right-leave-to {
     transform: translateX(100%);
 }
+
+.no-scroll-track::-webkit-scrollbar {
+    display: none;
+}
+
