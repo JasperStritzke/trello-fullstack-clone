@@ -2,22 +2,31 @@
   <div ref="root">
     <slot name="activator" :on="{mouseenter, mouseleave, keypress: keypress, mouseup: mouseup}"/>
   </div>
-  <transition name="slide-in-bottom">
-    <div
-        v-if="tooltip" v-click-away="clickAway"
-        class="absolute"
-        :style="{top: `${top}px`, left: `${left}px`, maxWidth: `${maxWidth}px`}"
-    >
-      <div :class="{'bg-opacity-70 bg-slate-900 text-white w-fit p-1 rounded': props.tooltip}">
-        <slot :close="close"/>
+  <teleport to="body">
+    <transition name="slide-in-bottom">
+      <div
+          :ref="setMenuElement"
+          v-if="tooltip" v-click-away="clickAway"
+          class="absolute"
+          :style="{top: `${top+offsetTop}px`, left: `${left+offsetLeft}px`, maxWidth: `${maxWidth}px`}"
+      >
+        <div :class=" {
+      'bg-black px-2 bg-opacity-70 text-white w-fit p-1 rounded': props.tooltip}">
+          <slot :close="close"/>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </teleport>
 </template>
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 
 const root = ref(null)
+const menuElement = ref(null)
+
+function setMenuElement(e: any) {
+  menuElement.value = e
+}
 
 const props = defineProps({
   position: String,
@@ -44,8 +53,23 @@ const props = defineProps({
   closeOnClick: {
     type: Boolean,
     default: true,
+  },
+  centered: {
+    type: Boolean,
+    default: false
   }
 })
+
+if (props.centered) {
+  watchEffect(() => {
+    if (menuElement.value !== null) {
+      const element = <unknown>root.value as HTMLElement
+      const menu = <unknown>menuElement.value as HTMLElement
+
+      offsetLeft.value = element.offsetWidth / 2 - menu.offsetWidth / 2
+    }
+  })
+}
 
 onMounted((() => {
   if (root.value === null) {
@@ -55,17 +79,21 @@ onMounted((() => {
   const element = root.value as HTMLElement;
   const rect = element.getBoundingClientRect();
 
+  const width = props.ignoreMaxWidth ? maxWidth.value : element.offsetWidth * props.maxWidthFactor
+
   if (!props.ignoreMaxWidth) {
-    maxWidth.value = element.offsetWidth * props.maxWidthFactor
+    maxWidth.value = width
   }
 
   top.value = rect.top + window.scrollY + element.offsetHeight + props.offset;
-  left.value = rect.left + (document.querySelector('#container')?.getBoundingClientRect().left || 0)
+  left.value = rect.left
 }))
 
 let tooltip = ref(false)
-let top = ref(60)
-let left = ref(60)
+let top = ref(60),
+    offsetTop = ref(0)
+let left = ref(60),
+    offsetLeft = ref(props.centered ? -1 : 0)
 let maxWidth = ref(99999)
 
 function open() {

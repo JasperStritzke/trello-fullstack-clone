@@ -6,7 +6,7 @@
           size="35"
       />
       <div class="flex flex-col">
-        <span class="text-sm font-medium text-gray-800">{{ name }}</span>
+        <span class="text-sm font-bold text-gray-800">{{ name }}</span>
         <span class="text-xs text-gray-500 tracking-tight" v-if="date">
           {{ date }}
         </span>

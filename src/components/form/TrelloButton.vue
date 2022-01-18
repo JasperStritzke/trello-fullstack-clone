@@ -5,7 +5,8 @@
         [computedRounded]: true,
         ['btn-' + this.color]: !!this.color && !this.transparent,
         ['btn-only-icon']: this.onlyIcon,
-        'btn-small': this.small
+        'btn-small': this.small,
+        'btn-wide': this.wide
       }"
       v-bind="$attrs">
     <slot name="append">
@@ -39,6 +40,10 @@ export default {
     small: {
       type: Boolean,
       default: false
+    },
+    wide: {
+      type: Boolean,
+      default: false,
     },
     transparent: {type: Boolean, default: false},
   },
@@ -79,6 +84,20 @@ export default {
 
 .btn-small {
   @apply text-sm px-3 p-1
+}
+
+.btn-wide {
+  @apply px-4
+}
+
+/* TEXT */
+.btn-text {
+  @apply text-gray-500 hover:bg-gray-100 active:bg-gray-200
+}
+
+/* GREEN */
+.btn-green {
+  @apply text-white bg-green-600 hover:bg-green-700 active:bg-green-800
 }
 
 /* GRAY */

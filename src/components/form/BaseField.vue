@@ -23,6 +23,6 @@ export default {
 
 <style scoped>
 div.field-base {
-  @apply px-5 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight border rounded-xl focus-within:shadow
+  @apply px-5 p-2 flex flex-row justify-center items-center gap-3 tracking-tight rounded-xl border focus-within:shadow
 }
 </style>

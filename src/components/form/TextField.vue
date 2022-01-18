@@ -1,5 +1,5 @@
 <template>
-  <base-field v-bind="$props" class="custom-field">
+  <base-field v-bind="$props">
     <input
         :placeholder="placeholder" class="outline-none"
         :value="modelValue" @input="e => $emit('update:modelValue', e)"

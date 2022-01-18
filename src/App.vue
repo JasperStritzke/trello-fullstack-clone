@@ -18,12 +18,3 @@ export default {
   components: {Drawer, AppBar}
 }
 </script>
-<style>
-* {
-  user-select: none;
-}
-
-.selectable {
-  user-select: all;
-}
-</style>

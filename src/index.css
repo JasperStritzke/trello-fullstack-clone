@@ -7,6 +7,14 @@ html, body, #app {
     height: 100%;
 }
 
+.btn-base, .field-base {
+    user-select: none;
+}
+
+.selectable * {
+    user-select: all;
+}
+
 .slide-in-bottom-enter-active,
 .slide-in-bottom-leave-active {
     transition: all 0.2s ease;
@@ -21,7 +29,7 @@ html, body, #app {
 /* SLIDE-IN-FROM-RIGHT */
 .slide-in-right-enter-active,
 .slide-in-right-leave-active {
-    transition: all 0.2s ease;
+    transition: all .2s ease;
     transform: translateX(0);
 }
 

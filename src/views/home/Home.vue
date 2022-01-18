@@ -29,7 +29,13 @@
           src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
           size="40"
       />
-      <trello-button append-icon="plus" color="primary" rounded="xl" only-icon/>
+      <menuable activate-only-on-click ignore-max-width>
+        <template v-slot:activator="{on}">
+          <trello-button v-on="on" append-icon="plus" color="gray" rounded="xl" only-icon/>
+        </template>
+        <dropdown-menu title="Titel" description="Eine etwas längere Beschreibung">
+        </dropdown-menu>
+      </menuable>
     </div>
     <trello-button label="Show menu" append-icon="dots-horizontal" @click="menuShown = true"/>
   </div>

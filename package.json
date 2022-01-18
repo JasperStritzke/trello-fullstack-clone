@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@mdi/js": "^6.5.95",
+    "@tiptap/starter-kit": "^2.0.0-beta.171",
+    "@tiptap/vue-3": "^2.0.0-beta.88",
     "mdi-vue": "^3.0.12",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12",
