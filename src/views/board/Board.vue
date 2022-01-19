@@ -31,7 +31,7 @@
       />
       <menuable activate-only-on-click ignore-max-width>
         <template v-slot:activator="{on}">
-          <trello-button v-on="on" append-icon="plus" color="gray" rounded="xl" only-icon/>
+          <trello-button v-on="on" append-icon="plus" color="primary" rounded="xl" only-icon/>
         </template>
         <dropdown-menu title="Titel" description="Eine etwas längere Beschreibung">
         </dropdown-menu>
@@ -57,7 +57,7 @@ import VisibilitySetting from "../../components/util/VisibilitySetting.vue";
 import BoardMenu from "./BoardMenu.vue";
 
 export default {
-  name: "Home",
+  name: "Board",
   components: {BoardMenu, VisibilitySetting, DropdownMenu, Menuable, Background, TrelloButton, Avatar},
   data() {
     return {

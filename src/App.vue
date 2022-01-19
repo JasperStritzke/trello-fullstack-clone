@@ -2,7 +2,10 @@
   <div class="h-full flex flex-col">
     <drawer/>
     <app-bar/>
-    <div id="container" class="relative p-5 pb-0 mt-5 h-full flex flex-col">
+    <div
+        id="container"
+        :class="{'relative h-full flex flex-col p-5': true, [$route.meta.backgroundClass || '']: true}"
+    >
       <router-view/>
     </div>
   </div>

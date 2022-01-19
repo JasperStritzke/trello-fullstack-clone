@@ -112,7 +112,7 @@ export default {
 
 /* PRIMARY */
 .btn-primary {
-  @apply bg-primary-100 text-white px-3 active:bg-primary-300 hover:bg-primary-200
+  @apply bg-primary-600 text-white px-3 active:bg-primary-800 hover:bg-primary-700
 }
 
 /* RED */

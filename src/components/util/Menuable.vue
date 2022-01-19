@@ -11,7 +11,7 @@
           :style="{top: `${top+offsetTop}px`, left: `${left+offsetLeft}px`, maxWidth: `${maxWidth}px`}"
       >
         <div :class=" {
-      'bg-black px-2 bg-opacity-70 text-white w-fit p-1 rounded': props.tooltip}">
+      'bg-black px-2 bg-opacity-50 text-white w-fit p-1 rounded': props.tooltip}">
           <slot :close="close"/>
         </div>
       </div>
@@ -19,7 +19,7 @@
   </teleport>
 </template>
 <script setup lang="ts">
-import {onMounted, ref, watchEffect} from "vue";
+import {onMounted, ref} from "vue";
 
 const root = ref(null)
 const menuElement = ref(null)
@@ -60,20 +60,26 @@ const props = defineProps({
   }
 })
 
-if (props.centered) {
-  watchEffect(() => {
-    if (menuElement.value !== null) {
-      const element = <unknown>root.value as HTMLElement
-      const menu = <unknown>menuElement.value as HTMLElement
-
-      offsetLeft.value = element.offsetWidth / 2 - menu.offsetWidth / 2
-    }
+function sneakPeak(cb: () => void) {
+  tooltip.value = true;
+  requestAnimationFrame(() => {
+    cb()
+    tooltip.value = false;
   })
 }
 
 onMounted((() => {
   if (root.value === null) {
     return;
+  }
+
+  if (props.centered) {
+    sneakPeak(() => {
+      const element = <unknown>root.value as HTMLElement
+      const menu = <unknown>menuElement.value as HTMLElement
+
+      offsetLeft.value = element.offsetWidth / 2 - menu.offsetWidth / 2
+    })
   }
 
   const element = root.value as HTMLElement;

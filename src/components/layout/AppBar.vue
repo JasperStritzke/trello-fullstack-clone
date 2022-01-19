@@ -4,13 +4,15 @@
       <div class="flex gap-5">
         <img src="../../assets/logo.svg" alt="Logo" width="32" height="32" draggable="false">
         <span class="font-medium text-xl">Trello</span>
-        <span class="board-name">IT-Software Board</span>
+        <span class="board-name" v-if="$route.params.id">IT-Software Board</span>
       </div>
 
-      <divider vertical class="hidden lg:inline"/>
-      <divider class="inline lg:hidden"/>
+      <divider vertical class="hidden lg:inline" v-if="$route.params.id"/>
+      <divider class="inline lg:hidden" vv-if="$route.params.id"/>
 
-      <trello-button label="All boards" append-icon="dots-grid"/>
+      <router-link to="/" v-if="$route.params.id">
+        <trello-button label="All boards" append-icon="dots-grid"/>
+      </router-link>
     </div>
 
     <text-field placeholder="Search for activity..." prepend-icon="magnify"/>
@@ -42,11 +44,14 @@ export default {
     TextField,
     Divider,
   },
+  computed() {
+
+  }
 }
 </script>
 
 <style scoped>
 div.app-bar {
-  @apply p-3 flex flex-col lg:flex-row justify-between shadow
+  @apply p-3 flex flex-col lg:flex-row justify-between shadow bg-white
 }
 </style>
