@@ -7,7 +7,7 @@
       <div
           :ref="setMenuElement"
           v-if="tooltip" v-click-away="clickAway"
-          class="absolute"
+          class="absolute z-50"
           :style="{top: `${top+offsetTop}px`, left: `${left+offsetLeft}px`, maxWidth: `${maxWidth}px`}"
       >
         <div :class=" {
@@ -68,11 +68,9 @@ function sneakPeak(cb: () => void) {
   })
 }
 
-onMounted((() => {
-  if (root.value === null) {
-    return;
-  }
+onMounted(() => calculatePosition())
 
+function calculatePosition() {
   if (props.centered) {
     sneakPeak(() => {
       const element = <unknown>root.value as HTMLElement
@@ -80,6 +78,10 @@ onMounted((() => {
 
       offsetLeft.value = element.offsetWidth / 2 - menu.offsetWidth / 2
     })
+  }
+
+  if (root.value === null) {
+    return;
   }
 
   const element = root.value as HTMLElement;
@@ -93,7 +95,7 @@ onMounted((() => {
 
   top.value = rect.top + window.scrollY + element.offsetHeight + props.offset;
   left.value = rect.left
-}))
+}
 
 let tooltip = ref(false)
 let top = ref(60),

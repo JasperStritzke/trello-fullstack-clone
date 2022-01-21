@@ -14,10 +14,11 @@
 
 <script>
 import Avatar from "../../components/media/Avatar.vue";
+import Menuable from "../../components/util/Menuable.vue";
 
 export default {
   name: "BoardCover",
-  components: {Avatar},
+  components: {Menuable, Avatar},
 }
 </script>
 

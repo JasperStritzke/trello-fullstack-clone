@@ -38,7 +38,35 @@ html, body, #app {
     transform: translateX(100%);
 }
 
+/* FADE-IN */
+
+.fade-in-enter-active,
+.fade-in-leave-active {
+    transition: all .2s ease;
+    opacity: 1;
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+    transition: all .2s ease;
+    opacity: 0;
+}
+
 .no-scroll-track::-webkit-scrollbar {
     display: none;
+}
+
+.fade-in {
+    animation: fade-in .2s forwards;
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 

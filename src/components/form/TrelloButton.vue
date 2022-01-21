@@ -79,7 +79,7 @@ export default {
 </script>
 <style scoped>
 .btn-base {
-  @apply px-5 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight
+  @apply px-8 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight
 }
 
 .btn-small {
