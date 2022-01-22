@@ -20,30 +20,44 @@
     <trello-button label="Show menu" append-icon="dots-horizontal" @click="menuShown = true"/>
   </div>
 
-  <background class="relative">
-    <div class="flex absolute bottom-0 h-full w-full overflow-x-auto gap-10 p-3 overflow-y-hidden">
-      <column v-for="column in columns" :key="column.name" :column="column"/>
-      <div style="width: 20rem">
-        <menuable max-width-factor="1" enforce-factor-width activate-only-on-click>
-          <template v-slot:activator="{on}">
-            <trello-button block prepend-icon="plus" label="Create list" color="primary-invert" v-on="on"/>
-          </template>
-          <dropdown-menu basic>
-            <div class="flex flex-col gap-3">
-              <text-field
-                  placeholder="Name" append-icon="tag"
-                  :invalid="createList.invalid" v-model="createList.title"
-              />
-              <trello-button label="Create" color="primary" prepend-icon="plus" block rounded="xl"/>
-            </div>
-          </dropdown-menu>
-        </menuable>
-      </div>
-    </div>
+  <!-- TODO: Fix background clipping with too few cards-->
+  <background>
+    <draggable
+        v-model="columns" item-key="name"
+        class="flex bottom-0 h-full w-full overflow-x-auto gap-10 p-3 mb-5 h-min"
+    >
+      <template v-slot:item="{element}">
+        <column :column="element"/>
+      </template>
+      <template v-slot:footer>
+        <div style="width: 20rem">
+          <menuable max-width-factor="1" enforce-factor-width activate-only-on-click>
+            <template v-slot:activator="{on}">
+              <trello-button block prepend-icon="plus" label="Create list" color="primary-invert" v-on="on"/>
+            </template>
+            <template v-slot:default="{close}">
+              <dropdown-menu basic>
+                <div class="flex flex-col gap-3">
+                  <text-field
+                      placeholder="Name" append-icon="tag"
+                      :invalid="createList.invalid" v-model="createList.title"
+                  />
+                  <trello-button
+                      label="Create" color="primary" prepend-icon="plus" block rounded="xl"
+                      @click="createNewList(close)"
+                  />
+                </div>
+              </dropdown-menu>
+            </template>
+          </menuable>
+        </div>
+      </template>
+    </draggable>
   </background>
 </template>
 
 <script>
+import draggable from "vuedraggable"
 import TrelloButton from "../../components/form/TrelloButton.vue";
 import Avatar from "../../components/media/Avatar.vue";
 import Background from "../../components/layout/Background.vue";
@@ -60,7 +74,20 @@ export default {
     TextField,
     Column,
     BoardVisibilityInput,
-    BoardMenu, DropdownMenu, Menuable, Background, TrelloButton, Avatar
+    BoardMenu, DropdownMenu, Menuable, Background, TrelloButton, Avatar,
+    draggable
+  },
+  methods: {
+    createNewList(close) {
+      if (!this.createList.title.length || this.createList.title.length >= 30) {
+        this.createList.invalid = true;
+        return;
+      }
+
+      this.createList.invalid = false;
+      this.createList.title = "";
+      close()
+    }
   },
   data() {
     return {
@@ -81,10 +108,15 @@ export default {
               badges: [],
               attachments: 0,
               comments: 1,
+              progress: {
+                value: 0.8,
+                color: "#1D4ED8"
+              },
               members: [
                 {
                   name: "Jasper S",
-                  avatarURL: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                  avatarURL:
+                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                 },
               ]
             },
@@ -101,7 +133,12 @@ export default {
               attachments: 0,
               comments: 0,
               members: []
-            },
+            }
+          ]
+        },
+        {
+          name: "Finished",
+          items: [
             {
               title: "Another one hehe",
               badges: [{
@@ -112,7 +149,7 @@ export default {
               comments: 0,
               members: []
             }
-          ]
+          ],
         },
         {
           name: "In Progress 📚",
@@ -120,11 +157,11 @@ export default {
             {
               title: "Move anything 'ready' here :)",
               badges: [
-                {name: "Technical", color: "#2F80ED"},
+                {name: "Technical", color: "#1D4ED8"},
                 {name: "Design", color: "#219653"},
-                {name: "Technical", color: "#2F80ED"},
+                {name: "Technical", color: "#1D4ED8"},
                 {name: "Design", color: "#219653"},
-                {name: "Technical", color: "#2F80ED"},
+                {name: "Technical", color: "#1D4ED8"},
                 {name: "Design", color: "#219653"}
               ],
               attachments: 2,
@@ -132,19 +169,23 @@ export default {
               members: [
                 {
                   name: "Jasper S",
-                  avatarURL: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                  avatarURL:
+                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                 },
                 {
                   name: "Jasper S",
-                  avatarURL: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                  avatarURL:
+                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                 },
                 {
                   name: "Jasper S",
-                  avatarURL: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                  avatarURL:
+                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                 },
                 {
                   name: "Jasper S",
-                  avatarURL: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                  avatarURL:
+                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                 },
               ]
             }

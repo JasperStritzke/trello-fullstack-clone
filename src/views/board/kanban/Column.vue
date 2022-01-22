@@ -22,7 +22,7 @@
     <!-- Cards -->
     <draggable
         v-model="column.items" item-key="title" group="cards" v-if="column"
-        class="flex flex-col gap-5 h-full overflow-y-scroll no-scroll-track -m-3 p-3 bottom-shadow" ghost-class="ghost"
+        class="flex flex-col gap-5 no-scroll-track -m-3 p-3" ghost-class="ghost"
     >
       <template #item="{element}">
         <kanban-card :item="element"/>
@@ -52,9 +52,5 @@ div.column {
   width: 20rem;
   height: 100%;
   @apply h-full max-h-full flex-shrink-0 flex flex-col gap-5
-}
-
-.bottom-shadow {
-  box-shadow: inset 0 -5px 5px -5px rgb(0 0 0 / 0.10);
 }
 </style>

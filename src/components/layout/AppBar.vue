@@ -52,6 +52,6 @@ export default {
 
 <style scoped>
 div.app-bar {
-  @apply p-3 flex flex-col lg:flex-row justify-between shadow bg-white
+  @apply p-3 flex flex-col lg:flex-row justify-between shadow bg-white sticky top-0 bg-white z-50
 }
 </style>

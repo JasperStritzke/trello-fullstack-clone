@@ -1,9 +1,14 @@
 <template>
   <div class="shadow bg-white rounded-lg p-3 flex flex-col gap-3 cursor-pointer relative select-none">
-    <img alt="ye"
-         src="https://images.unsplash.com/photo-1641919702567-e2efb46c8fb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80"
-         class="board-cover-image">
+    <img
+        alt="ye"
+        class="board-cover-image"
+        src="https://images.unsplash.com/photo-1641919702567-e2efb46c8fb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80"
+    >
     <p class="selectable">{{ item.title }}</p>
+    <div v-if="item.progress">
+      <progress-bar :color="item.progress.color" :percentage="item.progress.value"/>
+    </div>
     <div class="flex flex-row gap-3 overflow-x-auto w-full no-scroll-track"
          v-if="item.badges && item.badges.length > 0">
       <badge v-for="badge in item.badges" :key=badge.name :badge="badge"/>
@@ -43,12 +48,13 @@ import Badge from "./Badge.vue";
 import Avatar from "../../../components/media/Avatar.vue";
 import TrelloButton from "../../../components/form/TrelloButton.vue";
 import Menuable from "../../../components/util/Menuable.vue";
+import ProgressBar from "./ProgressBar.vue";
 
 const maxMembersPerCard = 3;
 
 export default {
   name: "KanbanCard",
-  components: {Menuable, TrelloButton, Avatar, Badge},
+  components: {ProgressBar, Menuable, TrelloButton, Avatar, Badge},
   props: ["item"],
   computed: {
     members() {
