@@ -9,7 +9,8 @@ html, body, #app {
 
 @layer utilities {
     .rounded-t-5xl {
-        border-radius: 30px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
     }
 }
 
