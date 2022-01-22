@@ -4,7 +4,7 @@
     <app-bar/>
     <div
         id="container"
-        :class="{'relative h-full flex flex-col p-5': true, [$route.meta.backgroundClass || '']: true}"
+        :class="{'relative h-full flex flex-col p-5 pb-0': true, [$route.meta.backgroundClass || '']: true}"
     >
       <router-view/>
     </div>

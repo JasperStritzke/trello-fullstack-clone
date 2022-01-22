@@ -2,7 +2,7 @@
   <base-field v-bind="$props">
     <input
         :placeholder="placeholder" class="outline-none"
-        :value="modelValue" @input="e => $emit('update:modelValue', e)"
+        :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
     />
   </base-field>
 </template>
@@ -24,4 +24,8 @@ export default {
 </script>
 
 <style scoped>
+div.field-invalid input {
+  @apply placeholder-red-500
+
+}
 </style>

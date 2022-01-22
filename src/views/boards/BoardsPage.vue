@@ -6,15 +6,14 @@
       <p class="font-medium text-xl">Your boards</p>
       <menuable tooltip centered>
         <template v-slot:activator="{on}">
-          <trello-button v-on="on" label="Create board" append-icon="plus" color="primary" @click="createDialogVisible = true"/>
+          <trello-button v-on="on" label="Create board" append-icon="plus" color="primary"
+                         @click="createDialogVisible = true"/>
         </template>
         You used 1 of 2 free boards.
       </menuable>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <router-link to="/board/sdfj" v-for="i in 5" :key="i">
-        <board-cover/>
-      </router-link>
+      <board-cover v-for="i in 5" :key="i" @select="$router.push('/board/123')"/>
     </div>
   </div>
 </template>

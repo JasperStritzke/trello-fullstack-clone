@@ -6,6 +6,7 @@
         ['btn-' + this.color]: !!this.color && !this.transparent,
         ['btn-only-icon']: this.onlyIcon,
         'btn-small': this.small,
+        'btn-block': this.block,
         'btn-wide': this.wide
       }"
       v-bind="$attrs">
@@ -45,6 +46,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    block: {
+      type: Boolean,
+      default: false,
+    },
     transparent: {type: Boolean, default: false},
   },
   computed: {
@@ -79,7 +84,7 @@ export default {
 </script>
 <style scoped>
 .btn-base {
-  @apply px-8 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight
+  @apply px-8 p-2 flex flex-row justify-center items-center justify-center gap-3 tracking-tight font-medium
 }
 
 .btn-small {
@@ -88,6 +93,10 @@ export default {
 
 .btn-wide {
   @apply px-4
+}
+
+.btn-block {
+  @apply w-full
 }
 
 /* TEXT */
@@ -112,7 +121,11 @@ export default {
 
 /* PRIMARY */
 .btn-primary {
-  @apply bg-primary-600 text-white px-3 active:bg-primary-800 hover:bg-primary-700
+  @apply bg-primary-600 text-white active:bg-primary-800 hover:bg-primary-700
+}
+
+.btn-primary-invert {
+  @apply text-primary-600 bg-primary-100 hover:bg-primary-200 active:bg-primary-300
 }
 
 /* RED */

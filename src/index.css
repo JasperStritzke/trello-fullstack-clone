@@ -7,6 +7,12 @@ html, body, #app {
     height: 100%;
 }
 
+@layer utilities {
+    .rounded-t-5xl {
+        border-radius: 30px;
+    }
+}
+
 .btn-base, .field-base {
     user-select: none;
 }
@@ -14,6 +20,21 @@ html, body, #app {
 .selectable * {
     user-select: all;
 }
+
+/* SLIDE-IN-TOP */
+
+.slide-in-top-enter-active,
+.slide-in-top-leave-active {
+    transition: all 0.2s ease;
+}
+
+.slide-in-top-enter-from,
+.slide-in-top-leave-to {
+    opacity: 0;
+    transform: translateY(-.5rem);
+}
+
+/* SLIDE-IN-BOTTOM */
 
 .slide-in-bottom-enter-active,
 .slide-in-bottom-leave-active {
@@ -68,5 +89,9 @@ html, body, #app {
     to {
         opacity: 1;
     }
+}
+
+.board-cover-image {
+    @apply h-32 object-cover w-full rounded-lg
 }
 

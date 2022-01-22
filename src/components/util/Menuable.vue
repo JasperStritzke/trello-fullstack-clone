@@ -8,7 +8,7 @@
           :ref="setMenuElement"
           v-if="tooltip" v-click-away="clickAway"
           class="absolute z-50"
-          :style="{top: `${top+offsetTop}px`, left: `${left+offsetLeft}px`, maxWidth: `${maxWidth}px`}"
+          :style="{top: `${top+offsetTop}px`, left: `${left+offsetLeft}px`, maxWidth: `${maxWidth}px`, width: `${width < 0 ? 'initial' : width}px`}"
       >
         <div :class=" {
       'bg-black px-2 bg-opacity-50 text-white w-fit p-1 rounded': props.tooltip}">
@@ -57,6 +57,10 @@ const props = defineProps({
   centered: {
     type: Boolean,
     default: false
+  },
+  enforceFactorWidth: {
+    type: Boolean,
+    default: false,
   }
 })
 
@@ -87,10 +91,14 @@ function calculatePosition() {
   const element = root.value as HTMLElement;
   const rect = element.getBoundingClientRect();
 
-  const width = props.ignoreMaxWidth ? maxWidth.value : element.offsetWidth * props.maxWidthFactor
+  const calculatedWidth = props.ignoreMaxWidth ? maxWidth.value : element.offsetWidth * props.maxWidthFactor
 
   if (!props.ignoreMaxWidth) {
-    maxWidth.value = width
+    maxWidth.value = calculatedWidth
+
+    if (props.enforceFactorWidth) {
+      width.value = calculatedWidth
+    }
   }
 
   top.value = rect.top + window.scrollY + element.offsetHeight + props.offset;
@@ -102,7 +110,8 @@ let top = ref(60),
     offsetTop = ref(0)
 let left = ref(60),
     offsetLeft = ref(props.centered ? -1 : 0)
-let maxWidth = ref(99999)
+let maxWidth = ref(99999),
+    width = ref(-1)
 
 function open() {
   tooltip.value = true;

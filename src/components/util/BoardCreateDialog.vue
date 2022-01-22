@@ -1,7 +1,14 @@
 <template>
-  <trello-dialog :model-value="modelValue" @update:modelValue="e => $emit('update:modelValue', e)" title="Create a board">
-    <text-field placeholder="Add board title" class="w-full"/>
-    <img src="" alt="cover" ref="coverImage"/>
+  <trello-dialog :model-value="modelValue" @update:modelValue="close">
+    <template v-slot:title>
+      <img
+          draggable="false" :src="cover" alt="cover" ref="coverImage"
+          class="board-cover-image border rounded-lg"
+          :style="{display: cover !== undefined? 'inline-block' : 'none'}"
+      />
+    </template>
+
+    <text-field placeholder="Add board title" class="w-full" v-model="title" :invalid="!valid"/>
     <div class="flex justify-between gap-3">
       <image-input-field ref="coverInput" @change="updateCover">
         <template v-slot:activator="{on}">
@@ -14,7 +21,6 @@
 
     <div class="flex flex-row gap-3 mt-5">
       <div class="w-full"/>
-      <input type="file" ref="yeet" style="display: none;"/>
       <trello-button label="Cancel" color="text" @click="close"/>
       <trello-button label="Create" append-icon="plus" color="primary" @click="create"/>
     </div>
@@ -38,28 +44,57 @@ export default {
     modelValue: {
       type: Boolean,
       default: true
+    },
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
+    boardModel: {
+      type: Object,
+      default: {
+        cover: undefined,
+        title: "",
+        visibility: "Private"
+      }
     }
   },
   data() {
     return {
-      visibility: "Public"
+      visibility: "Private",
+      cover: undefined,
+      title: "",
+      valid: true,
     }
+  },
+  mounted() {
+    this.visibility = this.boardModel.visibility
+    this.cover = this.boardModel.cover
+    this.title = this.boardModel.title
   },
   methods: {
     create() {
-      this.close()
+      this.valid = this.cover && this.title && this.title.length >= 3 && this.title.length <= 30
 
-      console.log(this.$refs.yeet.files[0].name)
+      if (this.valid) {
+        this.close()
+      }
     },
     close() {
       this.$emit('update:modelValue', false);
+      this.resetForm()
+    },
+    resetForm() {
+      this.cover = undefined;
+      this.title = ""
+      this.valid = true
+      this.visibility = "Private"
     },
     async updateCover(e) {
       const files = e.target.files;
 
       const file = files[0];
 
-      this.$refs.coverImage.src = await createImage(file);
+      this.cover = await createImage(file);
     }
   }
 }

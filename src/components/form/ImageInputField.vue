@@ -1,5 +1,5 @@
 <template>
-  <input class="hidden" type="file" ref="fileInput" @change="e => $emit('change', e)"/>
+  <input class="hidden" type="file" ref="fileInput" @change="e => $emit('change', e)" accept="image/png"/>
   <slot name="activator" :on="{click}" :get="{getFiles}"/>
 </template>
 
