@@ -25,13 +25,15 @@
     <draggable
         v-model="columns" item-key="name"
         class="flex bottom-0 h-full w-full overflow-x-auto gap-10 p-3 mb-5 h-min"
+        @end="columnsRefs.forEach(ref => ref.recalculatePosition())" ghost-class="ghost-column"
+        filter="input" :preventOnFilter="true"
     >
       <template v-slot:item="{element}">
-        <column :column="element"/>
+        <column :column="element" :ref="setColumnRef"/>
       </template>
       <template v-slot:footer>
         <div style="width: 20rem">
-          <menuable max-width-factor="1" enforce-factor-width activate-only-on-click>
+          <menuable :max-width-factor="1" enforce-factor-width activate-only-on-click>
             <template v-slot:activator="{on}">
               <trello-button block prepend-icon="plus" label="Create list" color="primary-invert" v-on="on"/>
             </template>
@@ -87,12 +89,21 @@ export default {
       this.createList.invalid = false;
       this.createList.title = "";
       close()
+    },
+    setColumnRef(el) {
+      if (el) {
+        this.columnsRefs.push(el)
+      }
     }
+  },
+  beforeUpdate() {
+    this.columnsRefs = [];
   },
   data() {
     return {
       visibility: "Private",
       menuShown: false,
+      columnsRefs: [],
 
       createList: {
         title: "",
@@ -122,7 +133,16 @@ export default {
             },
             {
               title: "Final one",
-              badges: [],
+              progress: {
+                value: 1/3,
+                color: '#9e33cd'
+              },
+              badges: [
+                {
+                  name: "Romy Oh Romy",
+                  color: '#192f9c'
+                }
+              ],
               attachments: 0,
               comments: 0,
               members: []
@@ -135,21 +155,6 @@ export default {
               members: []
             }
           ]
-        },
-        {
-          name: "Finished",
-          items: [
-            {
-              title: "Another one hehe",
-              badges: [{
-                name: "MIB",
-                color: "#000"
-              }],
-              attachments: 0,
-              comments: 0,
-              members: []
-            }
-          ],
         },
         {
           name: "In Progress 📚",
@@ -190,6 +195,21 @@ export default {
               ]
             }
           ]
+        },
+        {
+          name: "Finished 🎉",
+          items: [
+            {
+              title: "Another one hehe",
+              badges: [{
+                name: "MIB",
+                color: "#000"
+              }],
+              attachments: 0,
+              comments: 0,
+              members: []
+            }
+          ],
         }
       ]
     }

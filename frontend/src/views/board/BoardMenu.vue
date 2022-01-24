@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-in-right">
     <div
-        class="z-10 absolute right-0 top-0 bg-white h-full shadow-lg p-5 w-1/3 xl:w-1/4 rounded-l flex flex-col overflow-y-scroll"
+        class="z-10 fixed right-0 top-16 bg-white h-full shadow-lg p-5 w-1/3 xl:w-1/4 rounded-l flex flex-col overflow-y-scroll no-scroll-track"
         v-if="modelValue"
     >
       <div class="flex flex-row mb-2 text-gray-800 justify-between items-center">

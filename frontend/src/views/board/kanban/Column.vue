@@ -2,7 +2,7 @@
   <div class="column">
     <div class="flex justify-between cursor-move select-none">
       <div class="font-medium">{{ column.name }}</div>
-      <menuable ignore-max-width activate-only-on-click>
+      <menuable ignore-max-width activate-only-on-click ref="renameOrDelete">
         <template v-slot:activator="{on}">
           <mdicon v-on="on" name="dots-horizontal" class="cursor-pointer"/>
         </template>
@@ -27,9 +27,10 @@
       <template #item="{element}">
         <kanban-card :item="element"/>
       </template>
+      <template v-slot:footer>
+        <trello-button block label="Add another card" prepend-icon="plus" color="primary-invert"/>
+      </template>
     </draggable>
-
-    <trello-button block label="Add another card" prepend-icon="plus" color="primary-invert"/>
   </div>
 </template>
 
@@ -43,7 +44,12 @@ import KanbanCard from "./KanbanCard.vue";
 export default {
   name: "Column",
   components: {KanbanCard, DropdownMenu, Menuable, TrelloButton, draggable},
-  props: ['column']
+  props: ['column'],
+  methods: {
+    recalculatePosition() {
+      this.$refs.renameOrDelete.calculatePosition()
+    }
+  }
 }
 </script>
 
@@ -52,5 +58,14 @@ div.column {
   width: 20rem;
   height: 100%;
   @apply h-full max-h-full flex-shrink-0 flex flex-col gap-5
+}
+
+.ghost-column {
+  min-height: 75vh;
+  @apply border border-dotted border-primary-500 border-2 ring-offset-8 ring-primary-600 h-full bg-primary-100 rounded-lg
+}
+
+.ghost-column * {
+  display: none;
 }
 </style>

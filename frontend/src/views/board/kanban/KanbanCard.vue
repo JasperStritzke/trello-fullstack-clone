@@ -1,11 +1,11 @@
 <template>
-  <div class="shadow bg-white rounded-lg p-3 flex flex-col gap-3 cursor-pointer relative select-none">
+  <div class="shadow bg-white rounded-lg p-3 flex flex-col gap-3 cursor-pointer relative select-none" ref="root">
     <img
         alt="ye"
         class="board-cover-image"
         src="https://images.unsplash.com/photo-1641919702567-e2efb46c8fb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80"
     >
-    <p class="selectable">{{ item.title }}</p>
+    <input class="selectable focus:outline-offset-2 select-non" :value="item.title" @blur="saveTitle"/>
     <div v-if="item.progress">
       <progress-bar :color="item.progress.color" :percentage="item.progress.value"/>
     </div>
@@ -73,11 +73,8 @@ export default {
 
 <style scoped>
 .ghost {
-  min-height: 5rem;
+  min-height: 15rem;
   @apply border border-dotted border-primary-500 border-2 ring-offset-8 ring-primary-600 h-full bg-primary-100
-}
-
-.sortable-chosen {
 }
 
 .ghost * {

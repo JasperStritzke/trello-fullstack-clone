@@ -10,7 +10,7 @@
         :src="src"
         alt="avatar"
         :width="size"
-        class="rounded-xl shadow object-cover aspect-square transition-all duration-200"
+        class="rounded-xl shadow object-cover aspect-square transition-all duration-50"
         :style="{opacity: visible ? 1 : 0}"
         @load="visible = true"
     >

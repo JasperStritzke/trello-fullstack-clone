@@ -19,7 +19,7 @@
   </teleport>
 </template>
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, onUpdated, ref} from "vue";
 
 const root = ref(null)
 const menuElement = ref(null)
@@ -73,6 +73,7 @@ function sneakPeak(cb: () => void) {
 }
 
 onMounted(() => calculatePosition())
+onUpdated(() => calculatePosition())
 
 function calculatePosition() {
   if (props.centered) {
@@ -104,6 +105,10 @@ function calculatePosition() {
   top.value = rect.top + window.scrollY + element.offsetHeight + props.offset;
   left.value = rect.left
 }
+
+defineExpose({
+  calculatePosition
+})
 
 let tooltip = ref(false)
 let top = ref(60),
