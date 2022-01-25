@@ -1,5 +1,5 @@
 <template>
-  <div class="app-bar">
+  <div class="index-bar">
     <div class="flex flex-col lg:flex-row gap-5 items-center">
       <div class="flex gap-5">
         <img src="../../assets/logo.svg" alt="Logo" width="32" height="32" draggable="false">
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style scoped>
-div.app-bar {
+div.index-bar {
   @apply p-3 flex flex-col lg:flex-row justify-between shadow bg-white sticky top-0 bg-white z-50
 }
 </style>
