@@ -4,9 +4,10 @@ import {isProductionEnvironment} from "../util/env.helper";
 
 const fileRegexp = /(\.[^\\]+)$/
 
-let appDir = join(__dirname, "../../public/")
-if (isProductionEnvironment()) {
-    appDir = join(__dirname, "public")
+let appDir = join(__dirname, "public")
+
+if (isDevelopmentEnvironment()) {
+    appDir = join(__dirname, "../../public/")
 }
 
 export default function (req: Request, res: Response, next: NextFunction) {
