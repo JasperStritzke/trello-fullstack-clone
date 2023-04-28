@@ -6,3 +6,9 @@ Design: [Figma](https://www.figma.com/file/UOqXCGxVb1fjY7pWUzvI8K/Thullo---Trell
 
 - [Frontend](./frontend) - Vue 3, Vite, TypeScript + TailwindCSS
 - [Backend](./backend) - NodeJS, Express, Iridium, Redis, MinIO (+ Docker)
+
+---
+
+It's been some time and I learned a lot more. I would do many things differently today. For everyone that is interested in how this project looks, I created a gif below:
+
+![screen-3](https://user-images.githubusercontent.com/44339309/235217913-2a0e3d20-1a97-4846-b2d1-bd4bec597bc5.gif)
